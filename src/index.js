@@ -4,10 +4,17 @@ import './index.css';
 
 
 const container = document.getElementById('app');
-const root = createRoot(container)
+const root = createRoot(container);
+
+function Compteur(){
+  const state = useState(0)
+  console.log(state);
+  return <button></button>
+}
+
 root.render(
   <div>
-    
+    <Compteur />
   </div>
 );
 

@@ -1,0 +1,12 @@
+button {
+    background-color: #004b73;
+    color:antiquewhite;
+    padding: 10px;
+    border: none;
+    margin: 10px;
+    border-radius: 10%;
+}
+
+button:hover {
+    background-color: aquamarine;
+}

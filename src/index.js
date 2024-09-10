@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 
@@ -7,38 +7,34 @@ import './index.css';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-//Hook personnalisé
-
-function useIncrement(init, step) {
-  const [count3, setCount3] = useState(init);
+function useIncrement(init, step){
+  const [count, setCount] = useState(init);
   const increment = () => {
-    setCount3(c => c + step)
+    setCount( c => c + step)
   }
-  return [count3, increment]
+  return [count, increment]
 }
 
 function Compteur() {
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
+  const [count, increment] = useIncrement(0, 5);
 
-  const handleClick = function (e) {
-    e.preventDefault();
-    setCount(c => c + 1)
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      console.log('hello');
+      increment();
+    }, 1000)
+    return function(){
+      clearInterval(timer)
+    }
   }
+);
 
-  const handleClick2 = function (e) {
-    e.preventDefault();
-    setCount2(c => c + 2)
-  }
+  useEffect(()=> {
+    document.title = "Compteur " + count
+  }, [count]
+);
 
-  const [count3, increment] = useIncrement(0, 5);
-
-  return <>
-    <button onClick={handleClick}>Incrémenter {count}</button>
-    <button onClick={handleClick2}>Incrémenter {count2}</button>
-    <br></br>
-    <button onClick={increment}>Incrémenter {count3} </button>
-  </>
+  return <button onClick={increment}>Incrémenter {count}</button>
 }
 
 root.render(
